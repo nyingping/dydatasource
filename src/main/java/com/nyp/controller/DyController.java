@@ -30,36 +30,36 @@ public class DyController {
     @Autowired
     private MovieDao movieDao;
 
-//    @Autowired
-//    private Person3Dao person3Dao;
+    @Autowired
+    private Person3Dao person3Dao;
 
     @RequestMapping("/test")
 //    @Transactional(value = "MultiTransaction", rollbackFor = Exception.class)
 //    @MultiTransaction
     @Transactional(value = "xatx", rollbackFor = Exception.class)
     public void test(){
-//        Person person3 = new Person();
-//        person3.setName("张三3");
-//        person3Dao.insert(person3);
+        Person person3 = new Person();
+        person3.setName("张三3");
+        person3Dao.insert(person3);
 
         Person person = new Person();
         person.setName("张三");
         personDao.insert(person);
 
-        Movie movie = new Movie();
-        movie.setTitle("霸王别姬20");
-        movie.setVersion(20);
-        movieDao.add(movie);
+//        Movie movie = new Movie();
+//        movie.setTitle("霸王别姬20");
+//        movie.setVersion(20);
+//        movieDao.add(movie);
 
-        int a = 1/0;
+//        int a = 1/0;
     }
 
     @Transactional(value = "transactionManager")
     @RequestMapping("/neo")
     public void testNeo4j(){
         Movie movie = new Movie();
-        movie.setTitle("霸王别姬11");
-        movie.setVersion(11);
+        movie.setTitle("霸王别姬12");
+        movie.setVersion(12);
 
         movieDao.add(movie);
 

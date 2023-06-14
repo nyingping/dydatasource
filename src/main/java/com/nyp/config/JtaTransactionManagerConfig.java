@@ -25,9 +25,8 @@ import javax.transaction.UserTransaction;
 public class JtaTransactionManagerConfig {
 
     @Bean
-    public UserTransaction userTransaction() throws Throwable {
+    public UserTransaction userTransaction(){
         UserTransactionImp userTransactionImp = new UserTransactionImp();
-        userTransactionImp.setTransactionTimeout(10000);
         return userTransactionImp;
     }
 
@@ -39,7 +38,7 @@ public class JtaTransactionManagerConfig {
     }
 
     @Bean("xatx")
-    public PlatformTransactionManager transactionManager(UserTransaction userTransaction,
+    public JtaTransactionManager transactionManager(UserTransaction userTransaction,
                                                          TransactionManager transactionManager) {
         return new JtaTransactionManager(userTransaction, transactionManager);
     }

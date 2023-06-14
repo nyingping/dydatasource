@@ -37,7 +37,6 @@ public class MybatisDsMysql1Config {
         AtomikosDataSourceBean xaDataSource=new AtomikosDataSourceBean();
         xaDataSource.setXaDataSource(dataSource);
         xaDataSource.setUniqueResourceName("ds1");
-//        return new DruidDataSource();
         return xaDataSource;
     }
 
@@ -53,7 +52,6 @@ public class MybatisDsMysql1Config {
 
 
     @Bean(name = "sqlSessionFactory1")
-    @Primary
     public SqlSessionFactoryBean sqlSessionFactory1(@Qualifier("ds1") DataSource dataSource) throws IOException {
         SqlSessionFactoryBean sqlSessionFactoryBean = new SqlSessionFactoryBean();
         // 设置数据源

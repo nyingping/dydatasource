@@ -27,32 +27,18 @@ import java.io.IOException;
  * @date: 2023/6/12 18:47
  * @version: 1.0
  */
-//@Configuration
-//@EnableTransactionManagement
+@Configuration
+@EnableTransactionManagement
 public class MybatisDsNeo4jConfig {
 
-    /**
-     * 注入DruidXADataSource，Druid对JTA的支持，支持XA协议，采用两阶段事务的提交
-     * @return
-     */
-    @Bean(value = "druidXADataSourceNeo4j")
-    @ConfigurationProperties(prefix = "spring.datasource.sec1")
-    public DruidXADataSource druidXADataSourceNeo(){
-        return new DruidXADataSource();
-    }
-
     @Bean(name = "dsNeo4j")
-    public DataSource dsNeoDataSource(
-            @Qualifier("druidXADataSourceNeo4j") DruidXADataSource dataSource
-    ) {
-        AtomikosDataSourceBean xaDataSource=new AtomikosDataSourceBean();
-        xaDataSource.setXaDataSource(dataSource);
-        xaDataSource.setUniqueResourceName("dsNeo4j");
-        return xaDataSource;
-//                return new DruidDataSource();
+    @ConfigurationProperties(prefix = "spring.datasource.sec")
+    public DataSource dsNeoDataSource() {
+        return new DruidDataSource();
     }
 
     @Bean(name = "sqlSessionFactoryNeo4j")
+    @Primary
     public SqlSessionFactoryBean sqlSessionFactory2(@Qualifier("dsNeo4j") DataSource dataSource) throws IOException {
         SqlSessionFactoryBean sqlSessionFactoryBean = new SqlSessionFactoryBean();
         // 设置数据源
@@ -72,7 +58,6 @@ public class MybatisDsNeo4jConfig {
         msc.setBasePackage("com.nyp.dao.mapper2");
         return msc;
     }
-
 
     @Bean("transactionManager")
     @Primary

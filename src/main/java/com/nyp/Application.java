@@ -3,6 +3,7 @@ package com.nyp;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.neo4j.transaction.Neo4jTransactionManager;
@@ -26,6 +27,7 @@ import java.util.Map;
  */
 @SpringBootApplication
 @EnableTransactionManagement
+@EnableConfigurationProperties
 public class Application {
     public static void main(String[] args) {
         ConfigurableApplicationContext context = SpringApplication.run(Application.class, args);
