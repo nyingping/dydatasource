@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="true" scanPeriod="60 seconds" debug="false">
+    <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
+    <contextName>logback</contextName>
+    <!-- 动态 获取变量 name:变量名称，class：动态获取的类名 （类需要实现PropertyDefiner接口-->
+<!--   <define name="log.path"-->
+<!--            class="com.alpha.data.config.DynamicLogPropertyConfig">-->
+<!--   </define>-->
+
+    <!--输出到控制台-->
+    <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>[%d{yyyy-MM-dd HH:mm:ss.SSS}] ${LOG_LEVEL_PATTERN:-%p} ${PID:- } [%t] [%logger] : %m%n</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
+
+    <!--    提高kafka打印日志级别，避免刷屏-->
+    <logger name="org.apache.kafka.clients.consumer.internals.AbstractCoordinator" level="warn" />
+    <logger name="org.apache.kafka.clients.consumer.ConsumerConfig" level="warn" />
+    <logger name="org.springframework.kafka.KafkaListenerEndpointContainer" level="warn" />
+    <logger name="com.alpha.data.mysql.mapper.TUserDao.insertBatch" level="warn" />
+
+    <!--输出到文件-->
+    <appender name="file" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>./logs/alphadata-zfw/logback.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${log.path}/logback.%d{yyyy-MM-dd}.%i.log.zip</fileNamePattern>
+            <maxHistory>30</maxHistory>
+            <totalSizeCap>10GB</totalSizeCap>
+            <timeBasedFileNamingAndTriggeringPolicy
+                    class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>10gb</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+        </rollingPolicy>
+
+        <layout>
+            <pattern>[%d{yyyy-MM-dd HH:mm:ss.SSS}] ${LOG_LEVEL_PATTERN:-%p} ${PID:- } [%t] [%logger] : %m%n</pattern>
+        </layout>
+    </appender>
+
+    <springProfile name="default,dev,pro,prd,stg,test,uat,fit,fat">
+        <root level="debug">
+            <appender-ref ref="console"/>
+            <appender-ref ref="file"/>
+        </root>
+    </springProfile>
+
+</configuration>

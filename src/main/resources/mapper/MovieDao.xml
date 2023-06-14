@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nyp.dao.mapper2.MovieDao">
+<!--    <select id="getAll" resultType="com.minant.mant.model.MovieInfoModel">-->
+<!--        MATCH (people:Movie)-->
+<!--        RETURN-->
+<!--          id(people) as id,-->
+<!--          people.title as title,-->
+<!--          people.tagline as tagline,-->
+<!--          people.released as released LIMIT 10-->
+<!--    </select>-->
+
+    <insert id="add" parameterType="com.nyp.model.Movie">
+        create(people:movie{title:#{title},version:#{version}})
+    </insert>
+
+<!--    <update id="updateMovie" parameterType="com.minant.mant.form.MovieInfoForm">-->
+<!--        match (people:Movie)-->
+<!--        where people.title = #{title}-->
+<!--        set people.tagline=#{tagline},people.released=#{released}-->
+<!--    </update>-->
+
+<!--    <delete id="delMovie" parameterType="com.minant.mant.form.MovieInfoForm">-->
+<!--        match (people:Movie)-->
+<!--        where people.title = #{title} delete people-->
+<!--    </delete>-->
+</mapper>
