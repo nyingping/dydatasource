@@ -51,7 +51,7 @@ public class DyController {
 //        movie.setVersion(20);
 //        movieDao.add(movie);
 
-//        int a = 1/0;
+        int a = 1/0;
     }
 
     @Transactional(value = "transactionManager")
