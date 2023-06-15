@@ -30,11 +30,7 @@ import java.util.Map;
 @EnableConfigurationProperties
 public class Application {
     public static void main(String[] args) {
-        ConfigurableApplicationContext context = SpringApplication.run(Application.class, args);
-
-        Map map = context.getBeansOfType(Neo4jTransactionManager.class);
-        System.out.println(map);
-        System.out.println("The server has completely started ...  ");
+        SpringApplication.run(Application.class, args);
     }
 
     @Bean

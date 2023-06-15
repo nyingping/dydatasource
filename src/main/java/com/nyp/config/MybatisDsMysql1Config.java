@@ -2,7 +2,9 @@ package com.nyp.config;
 
 import com.alibaba.druid.pool.DruidDataSource;
 import com.alibaba.druid.pool.xa.DruidXADataSource;
+import com.mysql.cj.jdbc.MysqlXADataSource;
 import org.mybatis.spring.SqlSessionFactoryBean;
+import org.mybatis.spring.annotation.MapperScan;
 import org.mybatis.spring.mapper.MapperScannerConfigurer;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -28,6 +30,7 @@ import java.io.IOException;
  * @version: 1.0
  */
 @Configuration
+@MapperScan(basePackages = "com.nyp.dao.mapper1", sqlSessionFactoryRef = "sqlSessionFactory1")
 public class MybatisDsMysql1Config {
 
     @Bean(name = "ds1")
@@ -60,16 +63,6 @@ public class MybatisDsMysql1Config {
         ResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
         sqlSessionFactoryBean.setMapperLocations(resolver.getResources("classpath:mapper/*.xml"));
         return sqlSessionFactoryBean;
-    }
-
-    @Bean
-    public MapperScannerConfigurer mapperScannerConfigurer1(){
-        MapperScannerConfigurer msc = new MapperScannerConfigurer();
-        // 设置使用的SqlSessionFactory的名字
-        msc.setSqlSessionFactoryBeanName("sqlSessionFactory1");
-        // 设置映射接口的路径
-        msc.setBasePackage("com.nyp.dao.mapper1");
-        return msc;
     }
 
     @Bean("mysqlTransactionManager")

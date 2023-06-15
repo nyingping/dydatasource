@@ -1,12 +1,10 @@
 package com.nyp.config;
 
 import com.alibaba.druid.pool.DruidDataSource;
-import com.alibaba.druid.pool.xa.DruidXADataSource;
 import org.mybatis.spring.SqlSessionFactoryBean;
-import org.mybatis.spring.mapper.MapperScannerConfigurer;
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.boot.jta.atomikos.AtomikosDataSourceBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
@@ -29,6 +27,7 @@ import java.io.IOException;
  */
 @Configuration
 @EnableTransactionManagement
+@MapperScan(basePackages = "com.nyp.dao.mapper2", sqlSessionFactoryRef = "sqlSessionFactoryNeo4j")
 public class MybatisDsNeo4jConfig {
 
     @Bean(name = "dsNeo4j")
@@ -47,16 +46,6 @@ public class MybatisDsNeo4jConfig {
         ResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
         sqlSessionFactoryBean.setMapperLocations(resolver.getResources("classpath:mapper/*.xml"));
         return sqlSessionFactoryBean;
-    }
-
-    @Bean
-    public MapperScannerConfigurer mapperScannerConfigurer2(){
-        MapperScannerConfigurer msc = new MapperScannerConfigurer();
-        // 设置使用的SqlSessionFactory的名字,这个数据源扫描下面的目录下的mapper
-        msc.setSqlSessionFactoryBeanName("sqlSessionFactoryNeo4j");
-        // 设置映射接口的路径
-        msc.setBasePackage("com.nyp.dao.mapper2");
-        return msc;
     }
 
     @Bean("transactionManager")
