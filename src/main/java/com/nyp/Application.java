@@ -2,10 +2,7 @@ package com.nyp;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
-import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
-import org.springframework.data.neo4j.transaction.Neo4jTransactionManager;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
@@ -13,7 +10,6 @@ import org.springframework.web.client.RestTemplate;
 
 import java.nio.charset.Charset;
 import java.util.List;
-import java.util.Map;
 
 /**
  * @projectName: dydatasource
@@ -28,11 +24,7 @@ import java.util.Map;
 @EnableTransactionManagement
 public class Application {
     public static void main(String[] args) {
-        ConfigurableApplicationContext context = SpringApplication.run(Application.class, args);
-
-        Map map = context.getBeansOfType(Neo4jTransactionManager.class);
-        System.out.println(map);
-        System.out.println("The server has completely started ...  ");
+        SpringApplication.run(Application.class, args);
     }
 
     @Bean

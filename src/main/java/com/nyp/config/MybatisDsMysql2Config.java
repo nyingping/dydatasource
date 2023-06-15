@@ -3,6 +3,7 @@ package com.nyp.config;
 import com.alibaba.druid.pool.DruidDataSource;
 import com.alibaba.druid.pool.xa.DruidXADataSource;
 import org.mybatis.spring.SqlSessionFactoryBean;
+import org.mybatis.spring.annotation.MapperScan;
 import org.mybatis.spring.mapper.MapperScannerConfigurer;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -27,29 +28,14 @@ import java.io.IOException;
  * @version: 1.0
  */
 //@Configuration
+//@MapperScan(basePackages = "com.nyp.dao.mapper3", sqlSessionFactoryRef = "sqlSessionFactory3")
 public class MybatisDsMysql2Config {
 
     @Bean(name = "ds3")
     @ConfigurationProperties(prefix = "spring.datasource.thr")
-    public DataSource ds3DataSource(
-            @Qualifier("druidXADataSource3") DruidXADataSource dataSource
-    ) {
-        AtomikosDataSourceBean xaDataSource = new AtomikosDataSourceBean();
-        xaDataSource.setXaDataSource(dataSource);
-        xaDataSource.setUniqueResourceName("ds3");
+    public DataSource ds3DataSource() {
         return new DruidDataSource();
     }
-
-    /**
-     * 注入DruidXADataSource，Druid对JTA的支持，支持XA协议，采用两阶段事务的提交
-     *
-     * @return
-     */
-    @Bean(value = "druidXADataSource3")
-    public DruidXADataSource druidXADataSource3() {
-        return new DruidXADataSource();
-    }
-
 
     @Bean(name = "sqlSessionFactory3")
     public SqlSessionFactoryBean sqlSessionFactory3(@Qualifier("ds3") DataSource dataSource) throws IOException {
@@ -62,15 +48,15 @@ public class MybatisDsMysql2Config {
         return sqlSessionFactoryBean;
     }
 
-    @Bean
-    public MapperScannerConfigurer mapperScannerConfigurer3() {
-        MapperScannerConfigurer msc = new MapperScannerConfigurer();
-        // 设置使用的SqlSessionFactory的名字
-        msc.setSqlSessionFactoryBeanName("sqlSessionFactory3");
-        // 设置映射接口的路径
-        msc.setBasePackage("com.nyp.dao.mapper3");
-        return msc;
-    }
+//    @Bean
+//    public MapperScannerConfigurer mapperScannerConfigurer3() {
+//        MapperScannerConfigurer msc = new MapperScannerConfigurer();
+//        // 设置使用的SqlSessionFactory的名字
+//        msc.setSqlSessionFactoryBeanName("sqlSessionFactory3");
+//        // 设置映射接口的路径
+//        msc.setBasePackage("com.nyp.dao.mapper3");
+//        return msc;
+//    }
 
     @Bean("mysqlTransactionManager3")
     public DataSourceTransactionManager transactionManager(@Qualifier("ds3") DataSource dataSource) {

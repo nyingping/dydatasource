@@ -1,12 +1,16 @@
 import com.nyp.Application;
 import com.nyp.dao.mapper1.PersonDao;
 import com.nyp.dao.mapper2.MovieDao;
+import com.nyp.dao.mapper3.Person3Dao;
 import com.nyp.model.Movie;
 import com.nyp.model.Person;
 //import org.junit.Test;
 //import org.junit.runner.RunWith;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,23 +23,27 @@ import org.springframework.transaction.annotation.Transactional;
  * @date: 2023/6/13 9:07
  * @version: 1.0
  */
-//@RunWith(SpringRunner.class)
+@RunWith(SpringRunner.class)
 @SpringBootTest(classes = Application.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class DyTest {
 
     @Autowired
     private PersonDao personDao;
 
+//    @Autowired
+//    private Person3Dao person3Dao;
+
     @Autowired
     private MovieDao movieDao;
 
-//    @Test
-    @Transactional(rollbackFor = Exception.class)
+    @Test
+    @Rollback(value = true)
+//    @Transactional(rollbackFor = Exception.class)
     public void test(){
 
         Movie movie = new Movie();
         movie.setTitle("霸王别姬");
-        movie.setVersion(2);
+        movie.setVersion(1);
 
         movieDao.add(movie);
 
@@ -44,7 +52,7 @@ public class DyTest {
 
         personDao.insert(person);
 
-        int a = 1/0;
+//        int a = 1/0;
     }
 
 }

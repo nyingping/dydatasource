@@ -11,7 +11,7 @@
 <!--    </select>-->
 
     <insert id="add" parameterType="com.nyp.model.Movie">
-        create(people:movie{title:#{title},version:#{version}})
+        create(people:movie1{title:#{title},version:#{version}})
     </insert>
 
 <!--    <update id="updateMovie" parameterType="com.minant.mant.form.MovieInfoForm">-->

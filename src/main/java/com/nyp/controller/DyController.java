@@ -3,7 +3,6 @@ package com.nyp.controller;
 import com.nyp.config.MultiTransaction;
 import com.nyp.dao.mapper1.PersonDao;
 import com.nyp.dao.mapper2.MovieDao;
-import com.nyp.dao.mapper3.Person3Dao;
 import com.nyp.model.Movie;
 import com.nyp.model.Person;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,9 +33,9 @@ public class DyController {
 //    private Person3Dao person3Dao;
 
     @RequestMapping("/test")
-//    @Transactional(value = "MultiTransaction", rollbackFor = Exception.class)
-//    @MultiTransaction
-    @Transactional(value = "xatx", rollbackFor = Exception.class)
+//    @Transactional(value = "multiTransactionManager", rollbackFor = Exception.class)
+    @MultiTransaction
+//    @Transactional(value = "xatx", rollbackFor = Exception.class)
     public void test(){
 //        Person person3 = new Person();
 //        person3.setName("张三3");
@@ -47,8 +46,8 @@ public class DyController {
         personDao.insert(person);
 
         Movie movie = new Movie();
-        movie.setTitle("霸王别姬20");
-        movie.setVersion(20);
+        movie.setTitle("霸王别姬23");
+        movie.setVersion(23);
         movieDao.add(movie);
 
         int a = 1/0;
@@ -58,12 +57,12 @@ public class DyController {
     @RequestMapping("/neo")
     public void testNeo4j(){
         Movie movie = new Movie();
-        movie.setTitle("霸王别姬11");
-        movie.setVersion(11);
+        movie.setTitle("霸王别姬2");
+        movie.setVersion(2);
 
         movieDao.add(movie);
 
-        int a = 1/0;
+//        int a = 1/0;
     }
 
 }
