@@ -26,17 +26,4 @@ public class Application {
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
     }
-
-    @Bean
-    public RestTemplate restTemplate () {
-        RestTemplate restTemplate = new RestTemplate();
-        List<HttpMessageConverter<?>> list = restTemplate.getMessageConverters();
-        for (HttpMessageConverter<?> httpMessageConverter : list) {
-            if(httpMessageConverter instanceof StringHttpMessageConverter) {
-                ((StringHttpMessageConverter) httpMessageConverter).setDefaultCharset(Charset.forName("utf-8"));
-                break;
-            }
-        }
-        return restTemplate;
-    }
 }
